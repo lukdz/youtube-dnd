@@ -24,18 +24,19 @@ and press `Enter` key
 
 Copy and paste following code and save changes to file.
 ```bash
-function yt {
+yt () {
+	local url char
 	while true
 	do
-		local url=""
-		local char=""
+		url=""
+		char=""
 		while read -t 1 -n 1 -s -r char || [ -z "${url}" ]
 		do
 			url+="${char}"
 		done
-		echo "[input] ${url}"
+		printf "[input] %s\n" "${url}"
     	youtube-dl "${url}"
-    	echo
+    	printf "\n"
 	done
 }
 ```
@@ -44,4 +45,4 @@ Remember to open new terminal for changes to take an effect.
 
 ## Issues
 - adding third link while first one is downloading, causes second and third to merge together
-- function seams to be broken on `zsh`
+- ~~read function is broken on `zsh`~~ read function on zsh uses `-k` option instead of `-n`
