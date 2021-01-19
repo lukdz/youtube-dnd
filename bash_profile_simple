@@ -1,0 +1,15 @@
+yt () {
+	local url char
+	while true
+	do
+		url=""
+		char=""
+		while read -t 1 -n 1 -s -r char || [ -z "${url}" ]
+		do
+			url+="${char}"
+		done
+		printf "[input] %s\n" "${url}"
+    	youtube-dl "${url}"
+    	printf "\n"
+	done
+}

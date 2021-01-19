@@ -12,37 +12,15 @@ To terminate process press `Ctrl+C` or simply close the terminal.
 Install [youtube-dl](https://github.com/ytdl-org/youtube-dl) and make sure it is working properly (e.g. try executing `youtube-dl --version`).
 
 To add function for your user (Linux, macOS, etc.):
+To install it right away for all UNIX users (Linux, macOS, etc.), type:
 
-Open file:
-- `~/.bash_profile` on macOS
-- `~/.bash_aliases` on Ubuntu
-
-To open the file file type in terminal:
-- on mac OS `open -a TextEdit ~/.bash_profile`
-- on Ubuntu `gedit ~/.bash_profile`
-and press `Enter` key
-
-Copy and paste following code and save changes to file.
 ```bash
-yt () {
-	local url char
-	while true
-	do
-		url=""
-		char=""
-		while read -t 1 -n 1 -s -r char || [ -z "${url}" ]
-		do
-			url+="${char}"
-		done
-		printf "[input] %s\n" "${url}"
-    	youtube-dl "${url}"
-    	printf "\n"
-	done
-}
+sudo curl -L https://raw.githubusercontent.com/lukdz/youtube-dnd/master/yt -o /usr/local/bin/yt
+sudo chmod a+rx /usr/local/bin/yt
 ```
 
-Remember to open new terminal for changes to take an effect. 
+Alternatively you can add content of `bash_profile` file from this repository to your `~/.bash_profile`.
 
 ## Issues
-- adding third link while first one is downloading, causes second and third to merge together
+- ~~adding third link while first one is downloading, causes second and third to merge together~~ fixed by running youtube-dl in the background
 - ~~read function is broken on `zsh`~~ read function on zsh uses `-k` option instead of `-n`
