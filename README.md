@@ -19,7 +19,7 @@ sudo curl -L https://raw.githubusercontent.com/lukdz/youtube-dnd/master/yt -o /u
 sudo chmod a+rx /usr/local/bin/yt
 ```
 
-Alternatively you can add content of `bash_profile` file from this repository to your `~/.bash_profile`.
+Alternatively you can add content of `bash_function` file from this repository to your `~/.bash_aliases` on Ubuntu or `~/.bash_profile` on macOS.
 
 ## Issues
 - ~~adding third link while first one is downloading, causes second and third to merge together~~ fixed by running youtube-dl in the background
