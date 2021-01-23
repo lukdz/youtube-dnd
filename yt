@@ -1,7 +1,14 @@
 #!/bin/bash
 
 url_array=()
-youtube-dl --version &
+if [[ -n "${1}" ]]
+then
+    youtube-dl --version
+    printf "\n[arg] %s\n\n" "${1}"
+    youtube-dl "${1}" &
+else
+    youtube-dl --version &
+fi
 pid=$!
 while true
 do
