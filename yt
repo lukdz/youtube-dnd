@@ -1,11 +1,13 @@
 #!/bin/bash
 
+input_archive="$HOME/.config/youtube-dl/input.txt"
+
 url_array=()
 if [[ -n "${1}" ]]
 then
     youtube-dl --version
     url_array+=("${1}")
-    printf "\n[arg] %s\n\n" "${1}" &
+    printf "\n[arg] %s\n" "${1}" &
 else
     youtube-dl --version &
 fi
@@ -19,6 +21,7 @@ do
         url+="${char}"
         if [ "${#url_array[@]}" -ne 0 ] && ! ps -p "${pid}" > /dev/null
         then
+            printf "%s\n" "${url_array[0]}" >> "${input_archive}"
             printf "\n"
             youtube-dl "${url_array[0]}" &
             pid=$!
