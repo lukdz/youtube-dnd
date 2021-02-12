@@ -4,8 +4,8 @@ url_array=()
 if [[ -n "${1}" ]]
 then
     youtube-dl --version
-    printf "\n[arg] %s\n\n" "${1}"
-    youtube-dl "${1}" &
+    url_array+=("${1}")
+    printf "\n[arg] %s\n\n" "${1}" &
 else
     youtube-dl --version &
 fi
