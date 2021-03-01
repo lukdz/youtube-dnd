@@ -19,7 +19,7 @@ do
         if [ "${#url_array[@]}" -ne 0 ] && ! jobs %% &> /dev/null
         then
             printf "%s\n" "${url_array[0]}" >> "${input_archive}"
-            printf "\n"
+            printf "\n[1 / %d] %s\n" "${#url_array[@]}" "${url_array[0]}"
             youtube-dl "${url_array[0]}" &
             url_array=("${url_array[@]:1}")
         fi
