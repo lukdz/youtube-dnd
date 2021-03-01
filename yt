@@ -3,15 +3,12 @@
 input_archive="$HOME/.config/youtube-dl/input.txt"
 
 url_array=()
+youtube-dl --version
 if [[ -n "${1}" ]]
 then
-    youtube-dl --version
     url_array+=("${1}")
-    printf "\n[arg] %s\n" "${1}" &
-else
-    youtube-dl --version &
+    printf "\n[arg] %s\n" "${1}"
 fi
-pid=$!
 while true
 do
     url=""
@@ -19,17 +16,16 @@ do
     while read -t 1 -n 1 -s -r char || [ -z "${url}" ]
     do
         url+="${char}"
-        if [ "${#url_array[@]}" -ne 0 ] && ! ps -p "${pid}" > /dev/null
+        if [ "${#url_array[@]}" -ne 0 ] && ! jobs %% &> /dev/null
         then
             printf "%s\n" "${url_array[0]}" >> "${input_archive}"
             printf "\n"
             youtube-dl "${url_array[0]}" &
-            pid=$!
             url_array=("${url_array[@]:1}")
         fi
     done
     url_array+=("${url}")
-    if ! ps -p "${pid}" > /dev/null
+    if ! jobs %% &> /dev/null
     then
         printf "\n[start] %s\n" "${url}"
     else
