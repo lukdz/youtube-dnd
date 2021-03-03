@@ -2,6 +2,19 @@
 
 input_archive="$HOME/.config/youtube-dl/input.txt"
 
+trap ctrl_c INT
+
+function ctrl_c() {
+    stty echo
+    kill %1 &> /dev/null 2>&1
+    printf "\n"
+    for drop in "${url_array[@]}"
+    do
+        printf "[drop] %s\n" "${drop}"
+    done
+    exit
+}
+
 url_array=()
 youtube-dl --version
 if [[ -n "${1}" ]]
