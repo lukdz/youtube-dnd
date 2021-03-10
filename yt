@@ -1,7 +1,5 @@
 #!/bin/bash
 
-input_archive="$HOME/.config/youtube-dl/input.txt"
-
 trap ctrl_c INT
 
 function ctrl_c() {
@@ -34,7 +32,6 @@ do
         url+="${char}"
         if [ "${#url_array[@]}" -ne 0 ] && ! ps -p "${pid}" > /dev/null
         then
-            printf "%s\n" "${url_array[0]}" >> "${input_archive}"
             printf "\n[1 / %d] %s\n" "${#url_array[@]}" "${url_array[0]}"
             youtube-dl "${url_array[0]}" &
             pid=$!
