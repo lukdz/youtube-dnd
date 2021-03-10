@@ -6,7 +6,7 @@ trap ctrl_c INT
 
 function ctrl_c() {
     stty echo
-    kill %1 &> /dev/null 2>&1
+    kill "${pid}" &> /dev/null
     printf "\n"
     for drop in "${url_array[@]}"
     do
