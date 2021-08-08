@@ -36,8 +36,8 @@ do
         url+="${char}"
         if [ "${#url_array[@]}" -ne 0 ] && ! ps -p "${pid}" > /dev/null
         then
-            printf "\n[1 / %d] %s\n" "${#url_array[@]}" "${url_array[0]}"
-            youtube-dl "${url_array[0]}" &
+            printf "\n[1 of %d] %s\n" "${#url_array[@]}" "${url_array[0]}"
+            /usr/bin/python3 /usr/local/bin/youtube-dl "${url_array[0]}" &
             pid=$!
             url_array=("${url_array[@]:1}")
         fi
