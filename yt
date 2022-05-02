@@ -3,6 +3,7 @@
 trap ctrl_c INT
 
 YT_DOWNLOADER=${YT_DOWNLOADER:-yt-dlp}
+YT_START_ARG=${YT_START_ARG:---update}
 
 function ctrl_c() {
     stty echo
@@ -18,7 +19,7 @@ function ctrl_c() {
 url_array=()
 if [[ -n "${1}" ]]
 then
-    "${YT_DOWNLOADER}" --version
+    ${YT_DOWNLOADER} "${YT_START_ARG}"
     for url in "$@"
     do
         url_array+=("${url}")
@@ -26,7 +27,7 @@ then
     done
     printf "\n" &
 else
-    "${YT_DOWNLOADER}" --version &
+    ${YT_DOWNLOADER} "${YT_START_ARG}" &
 fi
 pid=$!
 while true
@@ -39,7 +40,7 @@ do
         if [ "${#url_array[@]}" -ne 0 ] && ! ps -p "${pid}" > /dev/null
         then
             printf "\n[1 of %d] %s\n" "${#url_array[@]}" "${url_array[0]}"
-            /usr/bin/python3 "/usr/local/bin/${YT_DOWNLOADER}" "${url_array[0]}" &
+            ${YT_DOWNLOADER} "${url_array[0]}" &
             pid=$!
             url_array=("${url_array[@]:1}")
         fi
