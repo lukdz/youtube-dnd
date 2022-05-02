@@ -27,11 +27,30 @@ Alternatively you can add content of `bash_function` file from this repository t
 Default program used to process urls in `yt-dlp`. 
 This can be changed by setting environmental variable with name of selected program e.g.:
 ```
-export YT_DOWNLOADER=youtube-dl
+export YT_DOWNLOADER="yt-dlp"
+export YT_DOWNLOADER="youtube-dl"
+# for macOS to avoid issues with python version
+export YT_DOWNLOADER="/usr/bin/python3 /usr/local/bin/youtube-dl"
 ```
+
+It possible to modify the link before passing them to command line tool for example 
+to use with [wkhtmltopdf](https://wkhtmltopdf.org/) to render HTML into PDF:
+```
+wkslug () {
+    wkhtmltopdf \
+        "$1" \
+        "$(echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z).pdf"
+}
+export YT_DOWNLOADER="wkslug"
+YT_START_OPTION=${YT_START_OPTION:---version}
+```
+
 To make this change persistent above example to to `~/.bash_aliases` on Ubuntu or `~/.bash_profile` on macOS.
 
 ## Issues
 - ~~adding third link while first one is downloading, causes second and third to merge together~~ 
 fixed by running downloader in the background
 - ~~read function is broken on `zsh`~~ read function on zsh uses `-k` option instead of `-n`
+
+## External links
+- [Create URL friendly slug with pure bash?](https://stackoverflow.com/questions/47050589/create-url-friendly-slug-with-pure-bash)
