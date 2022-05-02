@@ -41,8 +41,9 @@ wkslug () {
         "$1" \
         "$(echo "$1" | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z).pdf"
 }
+export -f wkslug
 export YT_DOWNLOADER="wkslug"
-YT_START_OPTION=${YT_START_OPTION:---version}
+export YT_START_OPTION=${YT_START_OPTION:---version}
 ```
 
 To make this change persistent above example to to `~/.bash_aliases` on Ubuntu or `~/.bash_profile` on macOS.
