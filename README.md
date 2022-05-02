@@ -24,8 +24,11 @@ sudo chmod a+rx /usr/local/bin/yt
 Alternatively you can add content of `bash_function` file from this repository to `~/.bash_aliases` on Ubuntu or `~/.bash_profile` on macOS.
 
 ## Options
-Default program used to process urls in `yt-dlp`. 
-This can be changed by setting environmental variable with name of selected program e.g.:
+Default program used to process URLs is `yt-dlp` with `--update` argument on startup. 
+This can be changed by setting environmental variable with name of selected program and option.
+To make changes persistent add the following example to `~/.bash_aliases` file on Ubuntu or `~/.bash_profile` on macOS.
+
+### youtube
 ```
 export YT_DOWNLOADER="yt-dlp"
 export YT_DOWNLOADER="youtube-dl"
@@ -33,6 +36,7 @@ export YT_DOWNLOADER="youtube-dl"
 export YT_DOWNLOADER="/usr/bin/python3 /usr/local/bin/youtube-dl"
 ```
 
+### wkhtmltopdf
 It possible to modify the link before passing them to command line tool for example 
 to use with [wkhtmltopdf](https://wkhtmltopdf.org/) to render HTML into PDF:
 ```
@@ -43,10 +47,9 @@ wkslug () {
 }
 export -f wkslug
 export YT_DOWNLOADER="wkslug"
-export YT_START_OPTION=${YT_START_OPTION:---version}
+export YT_START_ARG=${YT_START_ARG:---version}
 ```
 
-To make this change persistent above example to to `~/.bash_aliases` on Ubuntu or `~/.bash_profile` on macOS.
 
 ## Issues
 - ~~adding third link while first one is downloading, causes second and third to merge together~~ 
